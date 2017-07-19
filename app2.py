@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 import socket
 app = Flask(__name__)
 
@@ -15,7 +14,7 @@ def show_user_profile(username):
 @app.route('/showmyip/')
 def hello(name=None):
 	myip = socket.gethostbyname(socket.gethostname())
-	return render_template('hello.html', name=myip)
+	return render_template('index.html', name=myip)
 
 	
 if __name__ == "__main__":
