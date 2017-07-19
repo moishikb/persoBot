@@ -1,3 +1,4 @@
+import os
 import socket
 from flask import Flask
 from flask_socketio import SocketIO, send
@@ -12,6 +13,10 @@ def show_my_hostname():
 def whatsup():
     return "I'm doing great!, what about you?"
 
+def run_command(msg):
+    command = str(msg).replace('run:', '')
+    os.system(command)
+    return 'Done, dude'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -20,6 +25,10 @@ socketio = SocketIO(app)
 
 @socketio.on('message')
 def handleMessage(msg):
+    if 'run:' in msg:
+        msg = run_command(msg)
+    if 'thanks' in msg:
+        msg = 'You\'re welcome!!'
     if 'how are you' in msg:
         msg = whatsup()
     if 'ip' in msg or 'IP' in msg:
