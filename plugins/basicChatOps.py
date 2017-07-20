@@ -1,10 +1,27 @@
+from datetime import datetime
+
+
+#--------------     FUNCTIONS      ----------------
+# Functions that will be available to the bot, please add your own functions under that line and before the functions dictionary definition
 def say_hello():
     return 'hello, Moshik '
+
 
 def say_hello2():
     return 'hello, Moshik2 '
 
-functions = {'say_hello': say_hello, 'say_hello2': say_hello2}
+def what_is_the_time():
+    return str(datetime.now())
+
+#--------------------------------------------------
+#-----------     functions dictionary  ------------
+#  Add new row here for any new function you are adding to the script
+functions = {'say_hello': say_hello,
+             'say_hello2': say_hello2,
+             'what_is_the_time': what_is_the_time}
+
+
+#-----------    PACKAGE Mechanism  ----------------
 
 
 def list_of_ops():

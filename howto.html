@@ -73,11 +73,32 @@
         </div>
         <div class="col-sm-8 text-left">
             <h3>How to ...</h3>
-            <p>This is the how to page
-            </p>
+
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <h4>Description</h4>
+                    <p>This chatBot developed in order to provide a platform for IT workers to assist them with common tasks during their daily work. <br>
+                    The system developed in Python and use the Flask module for managing the chet socket and enabling the web UI interface interaction</p>
+                    <hr><h4>How to install</h4>
 
+                    <p>Please follow those steps in order to prepare your machine to run the bot:</p>
+                    <p>1. install python - the system works with the latest 2.7.x version, you can download it from <a href="https://www.python.org/">python site</a></p>
+                    <p>2. install pip (in case your Python version doesnt include it already.</p>
+                    <p>3. Deploy the Flask module by following the instructions in <a href="http://flask.pocoo.org/docs/0.12/installation/">that site:</a> </p>
+
+                    <hr><h4>How to run</h4>
+                    <p>All you need to start using the bot is to:
+                    <ul>
+                        <li>run <b>"python main.py"</b> command from the root project folder</li>
+                        <li>open that site index file url</li>
+
+                    </ul></p>
+                    <hr><h4>How to use</h4>
+                    <p>Simply, you can ask any question you want. the bot will answer based on his knowledge and based on the operations that came OOTB</p>
+                    <p>You can extend the bot knowledge by adding new questions and answers to the <b>"bot_knowledge.json"</b> file that exist in the dll folder</p>
+                    <p>You can also extend the bot operations by adding new functions to the <b>"basicChatOps.py"</b> file that exist in the plugins folder<br>
+                    Make sure to add the new function the top of the file and update the dictionary as well</p>
+                    <p>To use function, you can ask the bot chat <b>"get list of actions"</b> and you can run each one of them by puting the function name with <b>@</b> prefix</p>
                 </div>
             </div>
         </div>
