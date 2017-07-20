@@ -52,7 +52,7 @@ $(document).ready(function() {
    });
 
   socket.on('message', function(msg) {
-    $("#messages").append('<hr><h4>Answer:</h4><p>'+msg+'</p>');
+    $("#messages").prepend('<hr><p>'+msg+'</p>');
   });
 
     $("#sendbutton").on('click',function(){
@@ -92,15 +92,19 @@ $(document).ready(function() {
       <p><a href="#">Link</a></p>
       <p><a href="#">Link</a></p>
     </div>
-    <div class="col-sm-8 text-left" id="messages">
+    <div class="col-sm-8 text-left">
       <h1>Welcome Moshik</h1>
-      <p>I'm your BOT, all you need, just ask for me.
+      <p>I'm your BOT, all you need, just ask for me to do.
         If i'm missing something, feel free to teach me.
       </p>
       <p>What can i do for you today?</p>
-      <input type="text" class="form-control" id="myMessage">
-      <button id="sendbutton" type="button" class="btn btn-primary">Ask</button>
-      <hr>
+      <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-1"><button id="sendbutton" type="button" class="btn btn-primary">Ask</button></div>
+            <div class="col-md-11"><input type="text" class="form-control" id="myMessage"></div>
+        </div>
+      </div>
+      <div id="messages"></div>
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">

@@ -18,13 +18,8 @@ def run_command(msg):
     os.system(command)
     return 'Done, dude'
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
 
-
-@socketio.on('message')
-def handleMessage(msg):
+def get_message(msg):
     if 'run:' in msg:
         msg = run_command(msg)
     if 'thanks' in msg:
@@ -35,8 +30,19 @@ def handleMessage(msg):
         msg = 'Your IP: ' + show_my_ip()
     if 'machine name' in msg:
         msg = 'Your  host name: ' + show_my_hostname()
-    print('Message: '+ msg)
-    send(msg, broadcast=True)
+    return msg
+
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
+
+
+@socketio.on('message')
+def handleMessage(msg):
+    results = get_message(msg)
+    print('Message: '+ results)
+    send(results, broadcast=True)
 
 if __name__ == '__main__':
     socketio.run(app)
