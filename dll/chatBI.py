@@ -2,6 +2,8 @@ import os
 import socket
 import json
 import re
+from plugins.basicChatOps import list_of_ops, get_function
+
 
 def show_my_ip():
     return socket.gethostbyname(socket.gethostname())
@@ -15,6 +17,10 @@ def run_command(msg):
     command = str(msg).replace('run:', '')
     res = os.popen(command).read()
     return 'Done, dude<br><pre>' + res + '</pre>'
+
+
+def run_function(func):
+    return func()
 
 
 def get_answer_from_knowledge(msg):
@@ -34,7 +40,7 @@ def get_answer_from_knowledge(msg):
 
 
 def get_message(msg):
-    if 'Welcome' in msg:
+    if 'Welcome aboard' in msg:
         msg = msg
     elif 'run:' in msg:
         msg = run_command(msg)
@@ -42,6 +48,11 @@ def get_message(msg):
         msg = 'Your IP: ' + show_my_ip()
     elif 'machine name' in msg:
         msg = 'Your  host name: ' + show_my_hostname()
+    elif 'list' in msg and 'actions' in msg:
+        msg = 'You can work with those operations:<br>' + list_of_ops()
+    elif msg[0] == '@':
+        func_name = msg.replace('@','')
+        msg = run_function(get_function(func_name))
     else:
         msg = get_answer_from_knowledge(msg)
 

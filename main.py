@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_socketio import SocketIO, send
-
 from dll.chatBI import get_message
 
 app = Flask(__name__)
