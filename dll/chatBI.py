@@ -16,7 +16,7 @@ def show_my_hostname():
 def run_command(msg):
     command = str(msg).replace('run:', '')
     res = os.popen(command).read()
-    return 'Done, dude<br><pre>' + res + '</pre>'
+    return '<br>Done<br><pre>' + res + '</pre>'
 
 
 def run_function(func):
@@ -41,6 +41,7 @@ def get_answer_from_knowledge(msg):
     except:
         return "Seems like my knowledge became corrupted, please make sure you didn't miss something!"
 
+
 def add_new_fac_to_knowledge(question,answer):
     try:
         json_file_path = r"dll\bot_knowledge.json"
@@ -53,23 +54,22 @@ def add_new_fac_to_knowledge(question,answer):
     except:
         return "Sorry but i failed to add new row to the knowledge-base!"
 
+
 def get_message(msg):
     if 'Welcome aboard' in msg:
         msg = msg
-    elif '###!!!###' in msg:
-        msg = "Got it, you want new FAQ :"+msg
     elif 'run:' in msg:
-        msg = run_command(msg)
+        msg = '<span class="label label-default">Execute</span><br>' + run_command(msg)
     elif 'ip' in msg or 'IP' in msg:
-        msg = 'Your IP: ' + show_my_ip()
+        msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + 'Your IP: ' + show_my_ip()
     elif 'machine name' in msg or 'host name' in msg:
-        msg = 'Your  host name: ' + show_my_hostname()
-    elif 'list' in msg and 'actions' in msg or 'methods' in msg:
-        msg = 'You can work with those operations:<br>' + list_of_ops()
+        msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + 'Your  host name: ' + show_my_hostname()
+    elif 'list' in msg and 'action' in msg or 'method' in msg:
+        msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;You can work with those operations:<br><br>' + list_of_ops() + '<div class="alert alert-success">To invoke one of those actions please use "@" as a prefix before the function name. e.g <strong>@action_name</strong>.</div>'
     elif msg[0] == '@':
         func_name = msg.replace('@','')
-        msg = run_function(get_function(func_name))
+        msg = '<span class="label label-warning">Action</span>&nbsp;&nbsp;' + run_function(get_function(func_name))
     else:
-        msg = get_answer_from_knowledge(msg)
-    return '<pre>' + msg + '</pre>'
+        msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + get_answer_from_knowledge(msg)
+    return '<div class="well well-sm">' + msg + '</div>'
 
