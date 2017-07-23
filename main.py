@@ -33,7 +33,7 @@ def howto():
 
 @app.route('/teach.html')
 def teach():
-    return render_template('teach.html')
+    return render_template('teach.html', reses='')
 
 
 @app.route('/simple', methods=['GET', 'POST'])
@@ -42,8 +42,8 @@ def simple():
         question = request.form['question']
         answer = request.form['answer']
         add_new_fac_to_knowledge(question, answer)
-        return render_template('index.html', name='My friend')
-    return render_template('index.html', name='My friend')
+        return render_template('teach.html', reses='Done')
+    return render_template('teach.html', reses='')
 
 
 @socketio.on('message')

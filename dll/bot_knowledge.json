@@ -1,1 +1,10 @@
-{"where do you live": "Right here, in your computer, great place to live in", "multi": "a<br><b>b</b<br><h3>c</h3><br>d<br>f<br>f", "google": "<iframe src='http://www.google.com' height='99%' width='99%'></iframe>", "do you have food": "No, i don't need that", "how are you": "I'm doing great, 10x", "how do you feel": "I'm feeling pretty well!, 10x", "Who is Yair": "Of course, Yair is your son!", "thanks|10x": "You're welcome!", "ynet": "<iframe src='http://www.ynet.co.il/home/0,7340,L-8,00.html' height='99%' width='99%'></iframe>", "hi": "Hi, Welcome back"}
+{
+  "where do you live": "Right here, in your computer, great place to live in",
+  "google": "<iframe src='http://www.google.com' height='99%' width='99%'></iframe>",
+  "food do you like": "Nothing special, i don't need that",
+  "how are you": "I'm doing great, 10x",
+  "you feel": "I'm feeling pretty well!, 10x",
+  "thanks|10x": "You're welcome!",
+  "ynet": "<iframe src='http://www.ynet.co.il/home/0,7340,L-8,00.html' height='99%' width='99%'></iframe>",
+  "hi": "Hi, Welcome back"
+}
