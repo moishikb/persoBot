@@ -1,23 +1,49 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO, send
-from dll.chatBI import get_message
+from dll.chatBI import get_message, add_new_fac_to_knowledge
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
+
+@app.route('/<name>')
+def index(name):
+    if name:
+        return render_template('index.html', name=name)
+    else:
+        return render_template('index.html', name='My friend')
+
+
 @app.route('/')
 @app.route('/index.html')
-def index():
-    return render_template('index.html')
+def index2():
+        return render_template('index.html', name='My friend')
+
 
 @app.route('/about.html')
 def about():
     return render_template('about.html')
 
+
 @app.route('/howto.html')
 def howto():
     return render_template('howto.html')
+
+
+@app.route('/teach.html')
+def teach():
+    return render_template('teach.html')
+
+
+@app.route('/simple', methods=['GET', 'POST'])
+def simple():
+    if request.method == 'POST':
+        question = request.form['question']
+        answer = request.form['answer']
+        add_new_fac_to_knowledge(question, answer)
+        return render_template('index.html', name='My friend')
+    return render_template('index.html', name='My friend')
 
 
 @socketio.on('message')

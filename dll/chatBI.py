@@ -41,10 +41,23 @@ def get_answer_from_knowledge(msg):
     except:
         return "Seems like my knowledge became corrupted, please make sure you didn't miss something!"
 
+def add_new_fac_to_knowledge(question,answer):
+    try:
+        json_file_path = r"dll\bot_knowledge.json"
+        with open(json_file_path) as json_file:
+            json_decoded = json.load(json_file)
+        json_decoded[question] = answer
+        with open(json_file_path, 'w') as json_file:
+            json.dump(json_decoded, json_file)
+        return "Done"
+    except:
+        return "Sorry but i failed to add new row to the knowledge-base!"
 
 def get_message(msg):
     if 'Welcome aboard' in msg:
         msg = msg
+    elif '###!!!###' in msg:
+        msg = "Got it, you want new FAQ :"+msg
     elif 'run:' in msg:
         msg = run_command(msg)
     elif 'ip' in msg or 'IP' in msg:
