@@ -3,5 +3,8 @@
   "how are you":"I'm doing great, 10x",
   "where do you live":"Right here, in your computer, great place to live in",
   "do you have food":"No, i don't need that",
-  "Who is Yair":"Of course, Yair is your son!"
+  "Who is Yair":"Of course, Yair is your son!",
+  "multi":"a<br><b>b</b<br><h3>c</h3><br>d<br>f<br>f",
+  "ynet":"<iframe src='http://www.ynet.co.il/home/0,7340,L-8,00.html' height='99%' width='99%'></iframe>",
+  "google":"<iframe src='http://www.google.com' height='99%' width='99%'></iframe>"
 }
