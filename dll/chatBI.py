@@ -2,8 +2,15 @@ import os
 import socket
 import json
 import re
+import datetime
+from shutil import copyfile
+
 from plugins.basicChatOps import list_of_ops, get_function
 
+def backup_json_file(file):
+    date = str(datetime.datetime.now())[:18]
+    date = date.replace(' ', '_').replace(':', '')
+    copyfile(file, file+date)
 
 def show_my_ip():
     return socket.gethostbyname(socket.gethostname())
@@ -36,7 +43,7 @@ def get_answer_from_knowledge(msg):
                 results += str(data[item])
                 flag = True
         if not flag:
-            results = "Sorry, i'm not familiar with such question"
+            results = "Sorry, i'm not familiar with such question, You can teach me by going to the <a href='teach.html'><span class='label label-default'>Teach me<span></a> page."
         return results
     except:
         return "Seems like my knowledge became corrupted, please make sure you didn't miss something!"
@@ -44,7 +51,9 @@ def get_answer_from_knowledge(msg):
 
 def add_new_fac_to_knowledge(question,answer):
     try:
+
         json_file_path = r"dll\bot_knowledge.json"
+        backup_json_file(json_file_path)
         with open(json_file_path) as json_file:
             json_decoded = json.load(json_file)
         json_decoded[question] = answer
@@ -71,6 +80,10 @@ def get_message(msg):
         func_name = msg.replace('@','')
         msg = '<span class="label label-warning">Action</span>&nbsp;&nbsp;' + run_function(get_function(func_name))
     else:
-        msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + get_answer_from_knowledge(msg)
+        msg = get_answer_from_knowledge(msg)
+        if 'Sorry' in msg:
+            msg = '<span class="label label-warning">Info</span>&nbsp;&nbsp;' + msg
+        else:
+            msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + msg
     return decorate + msg + '</div>'
 
