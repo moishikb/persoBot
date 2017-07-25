@@ -56,8 +56,9 @@ def add_new_fac_to_knowledge(question,answer):
 
 
 def get_message(msg):
+    decorate = '<div class="well well-sm">'
     if 'Welcome aboard' in msg:
-        msg = msg
+        decorate = '<div class="alert alert-success">'
     elif 'run:' in msg:
         msg = '<span class="label label-default">Execute</span><br>' + run_command(msg)
     elif 'ip' in msg or 'IP' in msg:
@@ -71,5 +72,5 @@ def get_message(msg):
         msg = '<span class="label label-warning">Action</span>&nbsp;&nbsp;' + run_function(get_function(func_name))
     else:
         msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + get_answer_from_knowledge(msg)
-    return '<div class="well well-sm">' + msg + '</div>'
+    return decorate + msg + '</div>'
 

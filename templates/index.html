@@ -48,7 +48,7 @@ $(document).ready(function() {
   var socket = io.connect('http://127.0.0.1:5000');
 
   socket.on('connect', function(){
-    socket.send("Welcome aboard - you're connected!, let's get started. How can i help?");
+    socket.send("Welcome aboard - you're connected!, let's get started. How can i help?</b>");
    });
 
   socket.on('message', function(msg) {
@@ -105,12 +105,6 @@ $(document).ready(function() {
       <div id="messages"></div>
     </div>
     <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>test</p>
-      </div>
-      <div class="well">
-        <p>test</p>
-      </div>
     </div>
   </div>
 </div>
