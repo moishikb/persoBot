@@ -21,7 +21,7 @@ def show_my_hostname():
 
 
 def run_command(msg):
-    command = str(msg).replace('run:', '')
+    command = str(msg).replace('#', '').replace('run:', '')
     res = os.popen(command).read()
     return '<br>Done<br><pre>' + res + '</pre>'
 
@@ -68,7 +68,7 @@ def get_message(msg):
     decorate = '<div class="well well-sm">'
     if 'Welcome aboard' in msg:
         decorate = '<div class="alert alert-success">'
-    elif 'run:' in msg:
+    elif 'run:' in msg or msg[0] == '#':
         msg = '<span class="label label-default">Execute</span><br>' + run_command(msg)
     elif 'ip' in msg or 'IP' in msg:
         msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + 'Your IP: ' + show_my_ip()
