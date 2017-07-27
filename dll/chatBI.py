@@ -3,14 +3,14 @@ import socket
 import json
 import re
 import datetime
+import importlib
+import glob
 from shutil import copyfile
+from inspect import getmembers, isfunction
 
-from plugins.basicChatOps import list_of_ops, get_function
+# ************************************************************
+# ******               Local functions:                  *****
 
-def backup_json_file(file):
-    date = str(datetime.datetime.now())[:18]
-    date = date.replace(' ', '_').replace(':', '')
-    copyfile(file, file+date)
 
 def show_my_ip():
     return socket.gethostbyname(socket.gethostname())
@@ -26,8 +26,58 @@ def run_command(msg):
     return '<br>Done<br><pre>' + res + '</pre>'
 
 
+# ************************************************************
+#  ****** mechanism to manage the external bot plugins:  *****
+
+# return list of package names as strings
+def list_of_available_packages():
+    packages_list = []
+    for file in glob.glob("bot_plugins/*.py"):
+        if 'init' not in file:
+            packages_list.append(str(file).replace('\\', '.').replace('.py', ''))
+    return packages_list
+
+
+def list_of_available_functions_in_package(package_name):
+    imported_module = importlib.import_module(package_name)
+    functions_list = [o for o in getmembers(imported_module) if isfunction(o[1])]
+    return functions_list
+
+
+def get_list_of_all_functions():
+    msg = '<b>List of functions you can ask from me to do<b><hr>'
+    packages_list = list_of_available_packages()
+    for module in packages_list:
+        msg += '<ul class="list-group">'
+        msg += '<li class="list-group-item list-group-item-info">' + str(module)+'</li>'
+        functions = list_of_available_functions_in_package(module)
+        for item in functions:
+            msg += '<li class="list-group-item">'+item[0]+'</li>'
+        msg += '</ul>'
+    return msg
+
+
 def run_function(func):
-    return func()
+    flag = False
+    try:
+        packages_list = list_of_available_packages()
+        for module in packages_list:
+            functions = list_of_available_functions_in_package(module)
+            if func in str(functions):
+                imported_module = importlib.import_module(module)
+                mymethod = getattr(imported_module, func)
+                msg = mymethod()
+                flag = True
+                break
+        if flag:
+            return 'done<br>' + msg
+        else:
+            return 'Function didnt found in the imported plugins!'
+    except:
+        return "Problem to run the function"
+
+# ************************************************************
+#  ****** mechanism to manage the local knowledge-base:  *****
 
 
 def get_answer_from_knowledge(msg):
@@ -64,6 +114,12 @@ def add_new_fac_to_knowledge(question,answer):
         return "Sorry but i failed to add new row to the knowledge-base!"
 
 
+def backup_json_file(file):
+    date = str(datetime.datetime.now())[:18]
+    date = date.replace(' ', '_').replace(':', '')
+    copyfile(file, file+date)
+
+
 def get_message(msg):
     decorate = '<div class="well well-sm">'
     if 'Welcome aboard' in msg:
@@ -75,10 +131,10 @@ def get_message(msg):
     elif 'machine name' in msg or 'host name' in msg:
         msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + 'Your  host name: ' + show_my_hostname()
     elif 'list' in msg and 'action' in msg or 'method' in msg:
-        msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;You can work with those operations:<br><br>' + list_of_ops() + '<div class="alert alert-success">To invoke one of those actions please use "@" as a prefix before the function name. e.g <strong>@action_name</strong>.</div>'
+        msg = get_list_of_all_functions() + '<div class="alert alert-warning">To invoke one of those actions please use "@" as a prefix before the function name. e.g <strong>@action_name</strong>.</div>'
     elif msg[0] == '@':
         func_name = msg.replace('@','')
-        msg = '<span class="label label-warning">Action</span>&nbsp;&nbsp;' + run_function(get_function(func_name))
+        msg = '<span class="label label-warning">Action:</span>&nbsp;&nbsp;' + run_function(func_name)
     else:
         msg = get_answer_from_knowledge(msg)
         if 'Sorry' in msg:
