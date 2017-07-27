@@ -64,6 +64,20 @@ $(document).ready(function() {
     socket.send($("#myMessage").val());
     $("#myMessage").val('');
   });
+
+  $('#myMessage').on('keypress', function (e) {
+         if(e.which === 13){
+
+            //Disable textbox to prevent multiple submit
+            $(this).attr("disabled", "disabled");
+
+            socket.send($("#myMessage").val());
+            $("#myMessage").val('');
+
+            //Enable the textbox again if needed.
+            $(this).removeAttr("disabled");
+         }
+   });
 });
 
 
