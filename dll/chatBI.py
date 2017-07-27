@@ -122,7 +122,7 @@ def backup_json_file(file):
 
 
 def get_message(msg):
-    decorate = '<div class="well well-sm">'
+    decorate = '<div class="panel panel-default"><div class="panel-body">'
     if 'Welcome aboard' in msg:
         decorate = '<div class="alert alert-success">'
     elif 'run:' in msg or msg[0] == '#':
@@ -142,5 +142,5 @@ def get_message(msg):
             msg = '<span class="label label-warning">Info</span>&nbsp;&nbsp;' + msg
         else:
             msg = '<span class="label label-info">Info</span>&nbsp;&nbsp;' + msg
-    return decorate + msg + '</div>'
+    return decorate + msg + '</div></div>'
 

@@ -1,7 +1,8 @@
 <html>
 <head>
     <title>Chat Room</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +41,8 @@
       }
       .row.content {height:auto;}
     }
-  </style>
+
+    </style>
 </head>
 <body>
 
@@ -101,41 +103,44 @@
 
         </div>
         <div class="col-sm-8 text-left">
-            <h3>Teach me more...</h3>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p><b>By that page you can extend my knowledge base by adding answers to common questions</b></p>
-                    <p>
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <form method="POST" action="/simple">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Question</span>
-                                        <input id="question" type="text" class="form-control" name="question" placeholder="Regular expression that will contain the question key words ">
-                                    </div>
-                                    <br>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Answer</span>
-                                        <input id="answer" type="text" class="form-control" name="answer" placeholder="Answer to the question">
-                                    </div>
-                                    <br>
-                                    <div class="input-group"><button id="addFAQ" type="submit" class="btn btn-success" style="width: 99%;">Add to the knowledge-base</button></div>
-                                </form>
-                            </div>
-                        </div>
-                    </p>
-                    <p>
-
-                        <h4>Comments:</h4>
-                    <hr>
-                    <p>1. Question - A regular expression that will contain the question key words !</p>
-                    <p>2. Answer   - can be any HTML string. You can work with <a href='https://html-online.com/editor/'><span class='label label-default'>that site<span></a> to generate the HTML of your page and copy the result here</p>
-                    <p>3. By adding new entry, the bot will take a backup for the knowledge-base json file. in case of corruption, please restore the last stable one, under the 'DLL' folder.</p>
-
-
-                    </p>
-                </div>
+            <div class="page-header">
+                <h1>Teach me more...</h1>
             </div>
+            <p><b>By that page you can extend my knowledge base by adding answers to common questions</b></p>
+            <p>
+            <form method="POST" action="/simple">
+                <div class="input-group">
+                    <span class="input-group-addon">Question</span>
+                    <input id="question" type="text" class="form-control" name="question"
+                           placeholder="Regular expression that will contain the question key words ">
+                </div>
+                <br>
+                <div class="input-group">
+                    <span class="input-group-addon">Answer</span>
+                    <input id="answer" type="text" class="form-control" name="answer"
+                           placeholder="Answer to the question">
+                </div>
+                <br>
+                <div class="input-group">
+                    <button id="addFAQ" type="submit" class="btn btn-success" style="width: 99%;">Add to the
+                        knowledge-base
+                    </button>
+                </div>
+            </form>
+            </p>
+            <p>
+                <br>
+            <h4>Comments:</h4>
+            <hr>
+            <p>1. Question - A regular expression that will contain the question key words !</p>
+            <p>2. Answer - can be any HTML string. You can work with <a href='https://html-online.com/editor/'><span
+                    class='label label-default'>that site<span></a> to generate the HTML of your page and copy the
+                result here</p>
+            <p>3. By adding new entry, the bot will take a backup for the knowledge-base json file. in case of
+                corruption, please restore the last stable one, under the 'DLL' folder.</p>
+
+
+            </p>
         </div>
         <div class="col-sm-2 sidenav">
         </div>
@@ -145,7 +150,6 @@
 <footer class="container-fluid text-center">
     <p>Footer Text</p>
 </footer>
-
 
 
 </body>
