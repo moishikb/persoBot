@@ -88,10 +88,11 @@ def get_answer_from_knowledge(msg):
         flag = False
         results = ''
         for item in data:
-            p = re.compile(item, re.IGNORECASE)
+            p = re.compile('.*'+item.replace(' ','.*')+'.*', re.IGNORECASE)
             if p.match(msg):
                 results += str(data[item])
                 flag = True
+                break
         if not flag:
             results = "Sorry, i'm not familiar with such question, You can teach me by going to the <a href='teach.html'><span class='label label-default'>Teach me<span></a> page."
         return results
