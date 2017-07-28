@@ -101,6 +101,10 @@ def get_answer_from_knowledge(msg):
 
 
 def add_new_fac_to_knowledge(question,answer):
+    if len(question) < 2 or len(answer) < 2:
+        return "One or more of the inputs are to short to be real input"
+    if question == '#' or  question == '@':
+        return "The symbol: " + question + " is used by the system for run functions"
     try:
 
         json_file_path = r"dll\bot_knowledge.json"

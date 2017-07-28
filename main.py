@@ -41,8 +41,8 @@ def simple():
     if request.method == 'POST':
         question = request.form['question']
         answer = request.form['answer']
-        add_new_fac_to_knowledge(question, answer)
-        return render_template('teach.html', reses='Done')
+        results = add_new_fac_to_knowledge(question, answer)
+        return render_template('teach.html', reses=results)
     return render_template('teach.html', reses='')
 
 
