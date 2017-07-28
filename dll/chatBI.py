@@ -101,10 +101,14 @@ def get_answer_from_knowledge(msg):
 
 
 def add_new_fac_to_knowledge(question,answer):
-    if len(question) < 2 or len(answer) < 2:
-        return "One or more of the inputs are to short to be real input"
+    try:
+        re.compile(question)
+    except re.error:
+        return "Error: The question: " + question + " contains invalid regular expression!"
     if question == '#' or  question == '@':
-        return "The symbol: " + question + " is used by the system for run functions"
+        return "Error: The symbol: " + question + " is used by the system for run functions"
+    if len(question) < 2 or len(answer) < 2:
+        return "Error: One or more of the inputs are too short to be real input"
     try:
 
         json_file_path = r"dll\bot_knowledge.json"
