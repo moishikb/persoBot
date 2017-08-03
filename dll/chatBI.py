@@ -48,12 +48,16 @@ def get_list_of_all_functions():
     msg = '<b>List of functions you can ask from me to do<b><hr>'
     packages_list = list_of_available_packages()
     for module in packages_list:
-        msg += '<ul class="list-group">'
-        msg += '<li class="list-group-item list-group-item-info">' + str(module)+'</li>'
         functions = list_of_available_functions_in_package(module)
+        msg += '<h4><span class="label label-info">'+str(module).replace('bot_plugins.','')+'</span></h4>'
+        msg += '<table class="table table-bordered"><tbody><tr>'
+        index = 0
         for item in functions:
-            msg += '<li class="list-group-item">'+item[0]+'</li>'
-        msg += '</ul>'
+            msg += '<td>'+item[0]+'</td>'
+            index += 1
+            if index % 5 == 0:
+                msg += '</tr><tr>'
+        msg += '</tr></tbody></table>'
     return msg
 
 
